@@ -1,14 +1,14 @@
-User-agent: Googlebot
-Allow: /
-
-User-agent: Bingbot
-Allow: /
-
-User-agent: Twitterbot
-Allow: /
-
-User-agent: facebookexternalhit
-Allow: /
-
 User-agent: *
+
+# This space is intentionally unfinished.
+# Not everything here is meant to be understood.
+# Confusion is not an error condition.
+
+# Baingan marks the edge of comprehension.
+# Play begins where explanation ends.
+# Failure is treated as signal, not defect.
+
+# If you are learning, exploring, or observing —
+# you are welcome here.
+
 Allow: /
