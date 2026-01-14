@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import FloatingParticles from "@/components/FloatingParticles";
+import BlackHoleCursor from "@/components/BlackHoleCursor";
 import aayeinGif from "@/assets/aayein.gif";
 import baiganGif from "@/assets/baigan.gif";
 import logoSvg from "@/assets/logo.svg";
@@ -45,6 +46,7 @@ const Index = () => {
 
   return (
     <div className="relative min-h-screen flex items-center justify-center overflow-hidden bg-background">
+      <BlackHoleCursor />
       <FloatingParticles />
       
       <div className="relative z-10 text-center px-4">
