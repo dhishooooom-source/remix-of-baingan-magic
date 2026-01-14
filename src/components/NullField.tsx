@@ -7,7 +7,7 @@ const NullField = () => {
     useEffect(() => {
         if (!containerRef.current) return;
 
-        const tokens = ["NO WORK LABS", "NWL", "∅", "null", "→", "·"];
+        const tokens = ["NO WORK LABS", "NWL", "∅", "null", "→", "WHERE TO FLY"];
         const particleCount = 200;
         const lineCount = 30; // More lines as requested
 

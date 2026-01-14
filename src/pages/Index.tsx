@@ -17,18 +17,13 @@ const Index = () => {
   const message = "Some things don't make sense.\nThat's where play begins.";
 
   const handleClick = () => {
-    if (isTransitioning || showBaingan) return;
+    if (showBaingan) return;
 
-    setIsTransitioning(true);
-
-    setTimeout(() => {
-      setShowBaingan(true);
-      setIsTransitioning(false);
-    }, 800);
+    setShowBaingan(true);
 
     setTimeout(() => {
       setShowText(true);
-    }, 2800);
+    }, 150);
   };
 
   useEffect(() => {
