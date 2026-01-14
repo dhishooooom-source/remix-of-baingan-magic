@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import FloatingParticles from "@/components/FloatingParticles";
 import aayeinGif from "@/assets/aayein.gif";
 import baiganGif from "@/assets/baigan.gif";
+import logoSvg from "@/assets/logo.svg";
 
 const Index = () => {
   const [showBaingan, setShowBaingan] = useState(false);
@@ -109,11 +110,18 @@ const Index = () => {
           </p>
         </div>
 
-        {/* Subtle hint text */}
+        {/* Lab logo and hint */}
         {!showBaingan && !isTransitioning && (
-          <p className="mt-6 text-xs text-muted-foreground/50 animate-pulse">
-            tap to discover
-          </p>
+          <div className="mt-6 flex flex-col items-center gap-2">
+            <img 
+              src={logoSvg} 
+              alt="Lab Logo" 
+              className="w-6 h-6 opacity-50 animate-pulse"
+            />
+            <p className="text-xs text-muted-foreground/50">
+              tap to discover
+            </p>
+          </div>
         )}
       </div>
     </div>
