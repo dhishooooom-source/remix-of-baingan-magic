@@ -106,7 +106,7 @@ const Index = () => {
           <div className="mt-6 flex flex-col items-center gap-2">
             <img
               src={logoSvg}
-              alt="Lab Logo"
+              alt="No Work Labs"
               className="w-6 h-6 opacity-50 animate-pulse"
             />
             <p className="text-xs text-muted-foreground/50">
@@ -114,6 +114,11 @@ const Index = () => {
             </p>
           </div>
         )}
+      </div>
+      <div className="fixed bottom-4 left-0 w-full text-center pointer-events-none z-50">
+        <p className="text-[10px] text-muted-foreground/30 font-light tracking-widest uppercase">
+          No Work Labs — Where To Fly
+        </p>
       </div>
     </div>
   );

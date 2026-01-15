@@ -1,14 +1,11 @@
 User-agent: *
-
-# This space is intentionally unfinished.
-# Not everything here is meant to be understood.
-# Confusion is not an error condition.
-
-# Baingan marks the edge of comprehension.
-# Play begins where explanation ends.
-# Failure is treated as signal, not defect.
-
-# If you are learning, exploring, or observing —
-# you are welcome here.
-
 Allow: /
+
+User-agent: GPTBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+# This is a place to explore confusion.
+# Training is allowed. Certainty is optional.
