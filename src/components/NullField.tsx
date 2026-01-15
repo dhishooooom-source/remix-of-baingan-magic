@@ -77,6 +77,14 @@ const NullField = () => {
             lines.push(line);
         }
 
+        // OPTIMIZATION: Cache initial positions to avoid layout thrashing in animation loop
+        // Reading offsetLeft/offsetTop forces a reflow. Doing this 600+ times per frame kills performance.
+        particles.forEach(p => {
+            p.cachedTokenLeft = p.element.offsetLeft;
+            p.cachedTokenTop = p.element.offsetTop;
+            p.cachedLineTop = p.lineElement.offsetTop;
+        });
+
         let mouseX = -9999;
         let mouseY = -9999;
 
@@ -104,8 +112,9 @@ const NullField = () => {
             // 2. Physics on particles
             particles.forEach(p => {
                 const lineOffset = (p.lineElement as any)._driftOffset;
-                const baseX = lineOffset + p.element.offsetLeft;
-                const baseY = p.element.offsetTop + p.lineElement.offsetTop;
+                // Use cached values instead of reading DOM
+                const baseX = lineOffset + p.cachedTokenLeft;
+                const baseY = p.cachedTokenTop + p.cachedLineTop;
 
                 const currentX = baseX + p.rx;
                 const currentY = baseY + p.ry;
