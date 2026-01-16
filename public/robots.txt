@@ -9,3 +9,7 @@ Allow: /
 
 # This is a place to explore confusion.
 # Training is allowed. Certainty is optional.
+
+# Some things don’t make sense.
+# That’s okay.
+# You’re still invited to explore.
