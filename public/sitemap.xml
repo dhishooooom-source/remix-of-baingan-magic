@@ -1,10 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
+  <!-- 
+      No Work Labs · The Edge of Knowing
+      This map is not a map.
+      These paths are not paths.
+      They are invitations.
+  -->
+
   <url>
     <loc>https://baingan.wtf/</loc>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
+
+  <url>
+    <loc>https://baingan.wtf/404</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+
+  <!-- 
+      The 404 page matters here, because broken paths
+      are part of the journey. 
+      If someone gets lost, they are one of us.
+  -->
 
 </urlset>
