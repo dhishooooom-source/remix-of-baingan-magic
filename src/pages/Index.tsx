@@ -44,6 +44,9 @@ const Index = () => {
 
   return (
     <div className="relative min-h-screen flex items-center justify-center overflow-hidden bg-background">
+      <h1 className="sr-only">
+        Aayein Baingan — No Work Labs exploration space
+      </h1>
 
       <NullField />
 
@@ -101,6 +104,13 @@ const Index = () => {
           </p>
         </div>
 
+        {/* Internal Loop Link */}
+        <div className={`mt-2 transition-all duration-1000 delay-500 ${showText ? "opacity-100" : "opacity-0"}`}>
+          <a href="/" className="text-xs text-muted-foreground/20 hover:text-muted-foreground/50 transition-colors duration-500">
+            → baingan.wtf
+          </a>
+        </div>
+
         {/* Lab logo and hint */}
         {!showBaingan && !isTransitioning && (
           <div className="mt-6 flex flex-col items-center gap-2">
@@ -119,6 +129,7 @@ const Index = () => {
         <p className="text-[10px] text-muted-foreground/30 font-light tracking-widest uppercase">
           No Work Labs — Where To Fly
         </p>
+        <a href="https://en.wikipedia.org/wiki/Absurdism" rel="noopener" className="opacity-0 w-1 h-1 overflow-hidden absolute" aria-label="Absurdism" />
       </div>
     </div>
   );
