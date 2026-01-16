@@ -1,12 +1,7 @@
 import { useState, useEffect } from "react";
 import NullField from "@/components/NullField";
 
-import aayeinGif from "@/assets/aayein.gif";
-import baiganGif from "@/assets/baigan.gif";
-import logoSvg from "@/assets/logo.svg";
 
-const preloadedImage = new Image();
-preloadedImage.src = baiganGif;
 
 const Index = () => {
   const [showBaingan, setShowBaingan] = useState(false);
@@ -51,7 +46,7 @@ const Index = () => {
       <NullField />
 
       <div className="relative z-10 text-center px-4">
-        {/* Image Container */}
+        {/* Image/Video Container */}
         <div className="relative inline-block w-64 h-64 sm:w-80 sm:h-80 md:w-96 md:h-96 lg:w-[420px] lg:h-[420px]">
           {/* Glow effect behind the image */}
           <div
@@ -65,29 +60,48 @@ const Index = () => {
             }}
           />
 
-          {/* Aayein GIF */}
-          <img
-            src={aayeinGif}
-            alt="Aayein"
+          {/* Aayein Video (Phase 1, 2, 3) */}
+          <video
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="metadata"
+            width="448"
+            height="448"
+            poster="/assets/aayein-poster.webp"
+            fetchPriority="high"
             onClick={handleClick}
             className={`absolute inset-0 w-full h-full
               object-cover rounded-3xl cursor-pointer transition-all duration-700 ease-out
-              hover:scale-105 glow-card
+              hover:scale-105 glow-card aspect-square
               ${!showBaingan && !isTransitioning ? "animate-gentle-bounce" : ""}
               ${isTransitioning || showBaingan ? "opacity-0 scale-95 pointer-events-none" : "opacity-100 scale-100"}
             `}
-          />
+          >
+            <source src="/assets/aayein.webm" type="video/webm" />
+            <source src="/assets/aayein.mp4" type="video/mp4" />
+          </video>
 
-          {/* Baingan GIF */}
-          <img
-            src={baiganGif}
-            alt="Baingan"
+          {/* Baingan Video */}
+          <video
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="metadata"
+            width="448"
+            height="448"
+            poster="/assets/baigan-poster.webp"
             className={`absolute inset-0 w-full h-full
               object-cover rounded-3xl transition-all duration-700 ease-out
-              animate-pulse-glow
+              animate-pulse-glow aspect-square
               ${showBaingan ? "opacity-100 scale-100" : "opacity-0 scale-110 pointer-events-none"}
             `}
-          />
+          >
+            <source src="/assets/baigan.webm" type="video/webm" />
+            <source src="/assets/baigan.mp4" type="video/mp4" />
+          </video>
         </div>
 
         {/* Text */}
@@ -115,7 +129,7 @@ const Index = () => {
         {!showBaingan && !isTransitioning && (
           <div className="mt-6 flex flex-col items-center gap-2">
             <img
-              src={logoSvg}
+              src="/assets/logo.svg"
               alt="No Work Labs"
               className="w-6 h-6 opacity-50 animate-pulse"
             />
