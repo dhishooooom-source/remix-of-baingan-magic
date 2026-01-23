@@ -1,9 +1,11 @@
-export async function onRequestGet(context) {
+import { Context } from "../../types";
+
+export async function onRequestGet(context: Context) {
     // CORS Check - allow localhost for dev
-    const origin = context.request.headers.get("Origin");
+    const origin = context.request.headers.get("Origin") || "";
     const allowedOrigins = ["https://baingan.wtf", "http://localhost:5173", "http://127.0.0.1:5173"];
 
-    const corsHeaders = {
+    const corsHeaders: Record<string, string> = {
         "Access-Control-Allow-Origin": allowedOrigins.includes(origin) ? origin : "https://baingan.wtf",
         "Access-Control-Allow-Headers": "Authorization, Content-Type",
     };
@@ -43,7 +45,8 @@ export async function onRequestGet(context) {
             status: ghResponse.status
         });
     } catch (error) {
-        return new Response(JSON.stringify({ error: error.message }), {
+        const errorMessage = error instanceof Error ? error.message : String(error);
+        return new Response(JSON.stringify({ error: errorMessage }), {
             status: 500,
             headers: { ...corsHeaders, "Content-Type": "application/json" }
         });

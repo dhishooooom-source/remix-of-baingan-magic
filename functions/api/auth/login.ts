@@ -1,4 +1,6 @@
-export async function onRequestGet(context) {
+import { Context } from "../../types";
+
+export async function onRequestGet(context: Context) {
     const clientId = context.env.GITHUB_CLIENT_ID;
 
     // Hardcoded production callback for GitHub OAuth App matching

@@ -1,4 +1,6 @@
-export async function onRequestGet(context) {
+import { Context } from "../../types";
+
+export async function onRequestGet(context: Context) {
     const clientId = context.env.GITHUB_CLIENT_ID;
     const clientSecret = context.env.GITHUB_CLIENT_SECRET;
     const url = new URL(context.request.url);
@@ -39,6 +41,7 @@ export async function onRequestGet(context) {
         return Response.redirect(`https://baingan.wtf/ullu-admin/auth?token=${token}`, 302);
 
     } catch (error) {
-        return new Response(error.message, { status: 500 });
+        const errorMessage = error instanceof Error ? error.message : String(error);
+        return new Response(errorMessage, { status: 500 });
     }
 }

@@ -1,8 +1,10 @@
-export async function onRequestPost(context) {
-    const origin = context.request.headers.get("Origin");
+import { Context } from "../../types";
+
+export async function onRequestPost(context: Context) {
+    const origin = context.request.headers.get("Origin") || "";
     const allowedOrigins = ["https://baingan.wtf", "http://localhost:5173", "http://127.0.0.1:5173"];
 
-    const corsHeaders = {
+    const corsHeaders: Record<string, string> = {
         "Access-Control-Allow-Origin": allowedOrigins.includes(origin) ? origin : "https://baingan.wtf",
         "Access-Control-Allow-Headers": "Authorization, Content-Type",
         "Access-Control-Allow-Methods": "POST, OPTIONS"
@@ -80,7 +82,8 @@ export async function onRequestPost(context) {
         });
 
     } catch (error) {
-        return new Response(JSON.stringify({ error: error.message }), {
+        const errorMessage = error instanceof Error ? error.message : String(error);
+        return new Response(JSON.stringify({ error: errorMessage }), {
             status: 500,
             headers: { ...corsHeaders, "Content-Type": "application/json" }
         });
