@@ -2,6 +2,7 @@ backend:
   name: github
   repo: dhishooooom-source/remix-of-baingan-magic
   branch: main
+  site_domain: statuesque-kataifi-72b37a.netlify.app # e.g. baingan-magic.netlify.app
 
 media_folder: "public/uploads"
 public_folder: "/uploads"
