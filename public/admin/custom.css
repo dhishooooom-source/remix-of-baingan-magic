@@ -1,0 +1,74 @@
+/* GLOBAL RESET */
+body,
+html {
+    background: #0c0c0c !important;
+    color: #e6e6e6 !important;
+    font-family: "VT323", "Terminal", monospace !important;
+}
+
+/* CENTERED WRAPPER */
+.nc-root-app {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 16px;
+}
+
+/* SIDEBAR + TOPBAR THEMING */
+.nc-app-header-content {
+    background: #111 !important;
+    border-bottom: 1px solid #222 !important;
+}
+
+.nc-app-sidebar {
+    background: #111 !important;
+    border-right: 1px solid #222 !important;
+}
+
+/* COLLECTION CARDS (Grid View) */
+.nc-collectionPage-list-item {
+    background: #151515 !important;
+    border-radius: 4px !important;
+    border: 1px solid #222 !important;
+    transition: 0.2s ease;
+}
+
+.nc-collectionPage-list-item:hover {
+    background: #1d1d1d !important;
+    border-color: #333 !important;
+}
+
+/* FORM FIELDS */
+input,
+textarea,
+.nc-widgetControl-field {
+    background: #1a1a1a !important;
+    border: 1px solid #333 !important;
+    color: #e6e6e6 !important;
+    border-radius: 4px !important;
+    font-family: "VT323", monospace !important;
+}
+
+/* BUTTONS */
+button,
+.nc-app-header-quickNewButton {
+    background: #5e2bff !important;
+    border-radius: 4px !important;
+    border: none !important;
+    padding: 10px 16px !important;
+    color: white !important;
+    font-family: "VT323", monospace !important;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+button:hover,
+.nc-app-header-quickNewButton:hover {
+    background: #6f3fff !important;
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+    .nc-root-app {
+        padding: 8px;
+    }
+}
