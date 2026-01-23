@@ -1,10 +1,8 @@
 export async function onRequestGet(context) {
     const clientId = context.env.GITHUB_CLIENT_ID;
 
-    // Dynamic redirect URI based on current host
-    const requestUrl = new URL(context.request.url);
-    const baseUrl = requestUrl.origin;
-    const redirectUri = `${baseUrl}/api/auth/callback`;
+    // Hardcoded production callback for GitHub OAuth App matching
+    const redirectUri = "https://baingan.wtf/api/auth/callback";
 
     const scope = "repo";
 

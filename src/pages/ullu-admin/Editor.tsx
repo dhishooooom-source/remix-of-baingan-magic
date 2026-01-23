@@ -9,12 +9,62 @@ interface EditorProps {
 export default function UlluEditor({ isNew = false }: EditorProps) {
     const { slug } = useParams();
     const navigate = useNavigate();
-    const [content, setContent] = useState("");
-    const [sha, setSha] = useState<string | null>(null);
+
     const [loading, setLoading] = useState(!isNew);
+    const [saving, setSaving] = useState(false);
     const [showDeleteModal, setShowDeleteModal] = useState(false);
 
-    // ... (rest of imports/state)
+    const [sha, setSha] = useState<string | null>(null);
+    const [date, setDate] = useState(new Date().toISOString().split("T")[0]);
+    const [author, setAuthor] = useState("observer");
+    const [body, setBody] = useState("");
+
+    useEffect(() => {
+        if (!isNew && slug) {
+            loadFile(slug);
+        }
+    }, [isNew, slug]);
+
+    const loadFile = async (fileSlug: string) => {
+        const token = sessionStorage.getItem("gh_token");
+        if (!token) {
+            navigate("/ullu-admin");
+            return;
+        }
+
+        try {
+            const res = await fetch(`/api/github/files?path=content/ullu/${fileSlug}.md`, {
+                headers: { Authorization: `Bearer ${token}` }
+            });
+
+            if (res.ok) {
+                const data = await res.json();
+                setSha(data.sha);
+                const decodedContent = atob(data.content);
+
+                const parsed = frontMatter(decodedContent);
+                const attr = (parsed.attributes || {}) as any;
+
+                if (attr.date) {
+                    try {
+                        setDate(new Date(attr.date).toISOString().split("T")[0]);
+                    } catch (e) {
+                        setDate(attr.date);
+                    }
+                }
+                if (attr.author) setAuthor(attr.author);
+                setBody(parsed.body);
+            } else {
+                alert("Failed to load file");
+                navigate("/ullu-admin");
+            }
+        } catch (e) {
+            console.error(e);
+            alert("Error loading file");
+        } finally {
+            setLoading(false);
+        }
+    };
 
     const handleSave = async () => {
         setSaving(true);
@@ -29,18 +79,44 @@ ${body}`;
 
         let finalSlug = slug;
         if (isNew) {
-            // Unique ID: date + full timestamp + author
-            const timestamp = new Date().toISOString().replace(/[-T:.Z]/g, "").slice(0, 14); // YYYYMMDDHHmmss
+            const timestamp = new Date().toISOString().replace(/[-T:.Z]/g, "").slice(0, 14);
             const safeAuthor = author.replace(/[^a-z0-9]/gi, "-").toLowerCase();
             finalSlug = `${date}-${timestamp}-${safeAuthor}`;
         }
 
-        // ... (rest of save logic)
+        const path = `content/ullu/${finalSlug}.md`;
+        const message = isNew ? `Create ${finalSlug}` : `Update ${finalSlug}`;
+
+        try {
+            const res = await fetch("/api/github/write", {
+                method: "POST",
+                headers: {
+                    "Authorization": `Bearer ${token}`,
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    path,
+                    content: finalContent,
+                    message,
+                    sha: isNew ? undefined : sha
+                })
+            });
+
+            if (res.ok) {
+                window.location.href = "/ullu-admin";
+            } else {
+                const err = await res.json();
+                alert("Failed to save: " + JSON.stringify(err));
+            }
+        } catch (e) {
+            console.error(e);
+            alert("Error saving");
+        } finally {
+            setSaving(false);
+        }
     };
 
-    const confirmDelete = () => {
-        setShowDeleteModal(true);
-    };
+    const confirmDelete = () => setShowDeleteModal(true);
 
     const handleDelete = async () => {
         const token = sessionStorage.getItem("gh_token");
@@ -67,25 +143,14 @@ ${body}`;
 
     return (
         <div className="min-h-screen bg-black text-[#e6e6e6] font-mono p-8 max-w-4xl mx-auto relative">
-            {/* Delete Modal Overlay */}
             {showDeleteModal && (
                 <div className="fixed inset-0 bg-black/80 flex items-center justify-center z-50">
                     <div className="bg-[#111] border border-[#333] p-8 max-w-md w-full rounded shadow-2xl text-center">
                         <h3 className="text-xl text-red-500 uppercase tracking-widest mb-4">Confirm Deletion</h3>
                         <p className="text-gray-400 mb-8">Are you sure you want to delete this pravachan? This action cannot be undone.</p>
                         <div className="flex justify-center gap-4">
-                            <button
-                                onClick={() => setShowDeleteModal(false)}
-                                className="px-6 py-2 border border-[#333] hover:bg-[#222] text-white rounded uppercase text-sm"
-                            >
-                                Cancel
-                            </button>
-                            <button
-                                onClick={handleDelete}
-                                className="px-6 py-2 bg-red-600 hover:bg-red-700 text-white rounded uppercase text-sm font-bold"
-                            >
-                                Delete Forever
-                            </button>
+                            <button onClick={() => setShowDeleteModal(false)} className="px-6 py-2 border border-[#333] hover:bg-[#222] text-white rounded uppercase text-sm">Cancel</button>
+                            <button onClick={handleDelete} className="px-6 py-2 bg-red-600 hover:bg-red-700 text-white rounded uppercase text-sm font-bold">Delete Forever</button>
                         </div>
                     </div>
                 </div>
@@ -94,56 +159,30 @@ ${body}`;
             <header className="flex justify-between items-center mb-8 border-b border-white/10 pb-4">
                 <h1 className="text-xl text-[#7affc0] uppercase">{isNew ? "New Pravachan" : `Edit: ${slug}`}</h1>
                 <div className="flex gap-4">
-                    {!isNew && (
-                        <button onClick={confirmDelete} className="text-red-500 hover:text-red-400 text-sm uppercase">
-                            [Delete]
-                        </button>
-                    )}
-                    <button onClick={() => navigate("/ullu-admin")} className="text-gray-500 hover:text-white text-sm uppercase">
-                        [Cancel]
-                    </button>
+                    {!isNew && <button onClick={confirmDelete} className="text-red-500 hover:text-red-400 text-sm uppercase">[Delete]</button>}
+                    <button onClick={() => navigate("/ullu-admin")} className="text-gray-500 hover:text-white text-sm uppercase">[Cancel]</button>
                 </div>
             </header>
 
-            {/* ... form fields (date, author, body, save button) ... */}
             <div className="space-y-6">
                 <div className="grid grid-cols-2 gap-6">
                     <div>
                         <label className="block text-xs uppercase tracking-widest text-gray-500 mb-2">Date</label>
-                        <input
-                            type="date"
-                            value={date}
-                            onChange={e => setDate(e.target.value)}
-                            className="w-full bg-[#111] border border-[#333] p-3 rounded text-white focus:border-[#7affc0] outline-none"
-                        />
+                        <input type="date" value={date} onChange={e => setDate(e.target.value)} className="w-full bg-[#111] border border-[#333] p-3 rounded text-white focus:border-[#7affc0] outline-none" />
                     </div>
                     <div>
                         <label className="block text-xs uppercase tracking-widest text-gray-500 mb-2">Author</label>
-                        <input
-                            type="text"
-                            value={author}
-                            onChange={e => setAuthor(e.target.value)}
-                            className="w-full bg-[#111] border border-[#333] p-3 rounded text-white focus:border-[#7affc0] outline-none"
-                        />
+                        <input type="text" value={author} onChange={e => setAuthor(e.target.value)} className="w-full bg-[#111] border border-[#333] p-3 rounded text-white focus:border-[#7affc0] outline-none" />
                     </div>
                 </div>
 
                 <div>
                     <label className="block text-xs uppercase tracking-widest text-gray-500 mb-2">Pravachan Body</label>
-                    <textarea
-                        value={body}
-                        onChange={e => setBody(e.target.value)}
-                        className="w-full h-[60vh] bg-[#111] border border-[#333] p-4 rounded text-white focus:border-[#7affc0] outline-none font-sans font-light text-lg leading-relaxed resize-none"
-                        placeholder="Write your truth..."
-                    />
+                    <textarea value={body} onChange={e => setBody(e.target.value)} className="w-full h-[60vh] bg-[#111] border border-[#333] p-4 rounded text-white focus:border-[#7affc0] outline-none font-sans font-light text-lg leading-relaxed resize-none" placeholder="Write your truth..." />
                 </div>
 
                 <div className="flex justify-end">
-                    <button
-                        onClick={handleSave}
-                        disabled={saving}
-                        className="bg-[#7affc0] text-black px-8 py-3 rounded uppercase tracking-widest hover:bg-white transition-colors font-bold disabled:opacity-50"
-                    >
+                    <button onClick={handleSave} disabled={saving} className="bg-[#7affc0] text-black px-8 py-3 rounded uppercase tracking-widest hover:bg-white transition-colors font-bold disabled:opacity-50">
                         {saving ? "Saving..." : "Save Pravachan"}
                     </button>
                 </div>

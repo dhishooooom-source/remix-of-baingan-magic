@@ -1,6 +1,6 @@
+import React, { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import frontMatter from "front-matter";
-
-// ... (other imports)
 
 interface GitHubFile {
     name: string;
@@ -43,7 +43,25 @@ export default function UlluAdminDashboard() {
                 setFiles(mdFiles);
 
                 setFiles(mdFiles);
-                // Content fetching removed to prevent rate-limit crash
+
+                // Fetch content for each file in background
+                mdFiles.forEach(async (f: any) => {
+                    try {
+                        const fileRes = await fetch(`/api/github/files?path=content/ullu/${f.name}`, {
+                            headers: { Authorization: `Bearer ${authToken}` },
+                        });
+                        if (fileRes.ok) {
+                            const fileData = await fileRes.json();
+                            const decoded = atob(fileData.content);
+                            const parsed = frontMatter(decoded);
+                            setFiles(prev => prev.map(p =>
+                                p.sha === f.sha ? { ...p, content: decoded, body: parsed.body } : p
+                            ));
+                        }
+                    } catch (e) {
+                        console.error("Failed snippet fetch:", f.name);
+                    }
+                });
 
             } else {
                 console.error("Failed to fetch files");
@@ -142,7 +160,7 @@ export default function UlluAdminDashboard() {
                 <p>Loading void...</p>
             ) : (
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    {files.map((file) => (
+                    {Array.isArray(files) && files.length > 0 ? files.map((file) => (
                         <div key={file.sha} className="bg-[#111] border border-[#222] p-6 rounded hover:border-[#7affc0] hover:translate-y-[-2px] transition-all group flex flex-col justify-between h-full min-h-[200px]">
                             {/* Content Preview */}
                             <div className="mb-4 overflow-hidden">
@@ -179,7 +197,9 @@ export default function UlluAdminDashboard() {
                                 </div>
                             </div>
                         </div>
-                    ))}
+                    )) : (
+                        <p className="col-span-3 text-center text-gray-500 py-12">No pravachans found. Create one to begin.</p>
+                    )}
                 </div>
             )}
         </div>

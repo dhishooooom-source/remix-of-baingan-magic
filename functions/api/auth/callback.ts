@@ -35,10 +35,8 @@ export async function onRequestGet(context) {
 
         const token = result.access_token;
 
-        // Redirect back to the admin page with the token
-        // Dynamic based on host
-        const origin = new URL(context.request.url).origin;
-        return Response.redirect(`${origin}/ullu-admin/auth?token=${token}`, 302);
+        // Redirect back to the production admin page with the token
+        return Response.redirect(`https://baingan.wtf/ullu-admin/auth?token=${token}`, 302);
 
     } catch (error) {
         return new Response(error.message, { status: 500 });
