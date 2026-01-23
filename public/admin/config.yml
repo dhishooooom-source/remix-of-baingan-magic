@@ -1,6 +1,5 @@
 backend:
-  name: github
-  repo: dhishooooom-source/remix-of-baingan-magic
+  name: git-gateway
   branch: main
 
 media_folder: "public/uploads"
