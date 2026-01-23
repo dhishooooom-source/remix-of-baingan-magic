@@ -4,5 +4,5 @@ author: observer
 ---
 
 jisko bachna nahi hota
-wo bola hai
-"Mujhe bacahao"
+wo bolta hai
+"Mujhe bachao"
