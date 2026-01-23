@@ -1,10 +1,57 @@
 import React, { useState, useEffect } from "react";
-import { ulluPravachans } from "../../data/ulluPravachans";
 import { Link } from "react-router-dom";
+import frontMatter from "front-matter";
+
+interface UlluPost {
+    slug: string;
+    date: string;
+    author: string;
+    body: string;
+}
+
+interface FrontMatterAttributes {
+    date: string | Date;
+    author?: string;
+}
 
 export default function UlluFeed() {
+    const [posts, setPosts] = useState<UlluPost[]>([]);
     const [visibleCount, setVisibleCount] = useState(9);
     const loaderRef = React.useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+        // Load markdown files using Vite's import.meta.glob
+        const loadPosts = async () => {
+            // Glob imports must be static literals
+            const modules = import.meta.glob('../../../content/ullu/*.md', { query: '?raw', import: 'default', eager: true });
+
+            const loadedPosts: UlluPost[] = Object.entries(modules).map(([path, content]) => {
+                // Parse frontmatter
+                // frontMatter default export might vary, usually it's the function itself
+                const parsed = frontMatter<FrontMatterAttributes>(content as string);
+                const attributes = parsed.attributes;
+                const body = parsed.body;
+
+                // Extract slug from filename
+                const filename = path.split('/').pop() || "";
+                const slug = filename.replace('.md', '');
+
+                return {
+                    slug,
+                    date: new Date(attributes.date).toISOString().split('T')[0],
+                    author: attributes.author || "observer",
+                    body: body.trim(),
+                };
+            });
+
+            // Sort newest first
+            loadedPosts.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+
+            setPosts(loadedPosts);
+        };
+
+        loadPosts();
+    }, []);
 
     useEffect(() => {
         const observer = new IntersectionObserver(
@@ -27,33 +74,40 @@ export default function UlluFeed() {
         };
     }, []);
 
-    const visiblePravachans = ulluPravachans.slice(0, visibleCount);
+    const visiblePravachans = posts.slice(0, visibleCount);
 
     return (
-        <div className="ullu-page">
-            <h1 style={{ opacity: 0.8, marginBottom: 20, fontSize: "1.8rem" }}>Ullu Pravachan</h1>
-            <p style={{ opacity: 0.4, marginBottom: 40 }}>Tiny truths from the edge of knowing.</p>
+        <div className="mx-auto max-w-3xl p-6 text-gray-200 min-h-screen">
+            <h1 className="text-3xl font-semibold mb-8 text-center bg-clip-text text-transparent bg-gradient-to-r from-white to-white/60">
+                Ullu Pravachan
+            </h1>
 
-            <div className="ullu-grid">
+            <div className="grid md:grid-cols-2 gap-6">
                 {visiblePravachans.map((p) => (
                     <Link
                         key={p.slug}
                         to={`/ullu/${p.slug}`}
-                        style={{
-                            textDecoration: "none",
-                            color: "inherit",
-                            display: "block" // Ensure link wraps the card properly
-                        }}
+                        className="block group"
                     >
-                        <div className="ullu-card">
-                            <p className="ullu-card-text">{p.content}</p>
-                            <p className="ullu-card-author">— {p.author}</p>
+                        <div
+                            className="bg-black/40 border border-white/10 rounded-xl p-5 backdrop-blur-sm h-full hover:border-white/20 transition-all duration-300 hover:bg-black/50"
+                        >
+                            <div className="text-sm opacity-60 mb-3 font-mono">{p.date}</div>
+
+                            <pre className="whitespace-pre-wrap text-lg leading-relaxed font-light font-sans text-gray-100">
+                                {p.body}
+                            </pre>
+
+                            <div className="mt-4 text-sm opacity-60 text-right italic">
+                                — {p.author}
+                            </div>
                         </div>
                     </Link>
                 ))}
             </div>
+
             {/* Sentinel for infinite scroll */}
-            {visibleCount < ulluPravachans.length && (
+            {visibleCount < posts.length && (
                 <div ref={loaderRef} style={{ height: "40px", width: "100%" }}></div>
             )}
         </div>

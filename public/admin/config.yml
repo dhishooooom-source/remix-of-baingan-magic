@@ -2,7 +2,9 @@ backend:
   name: github
   repo: dhishooooom-source/remix-of-baingan-magic
   branch: main
-  site_domain: statuesque-kataifi-72b37a.netlify.app # e.g. baingan-magic.netlify.app
+  site_domain: statuesque-kataifi-72b37a.netlify.app
+
+local_backend: true
 
 media_folder: "public/uploads"
 public_folder: "/uploads"
@@ -12,8 +14,18 @@ collections:
     label: "Ullu Pravachan"
     folder: "content/ullu"
     create: true
-    slug: "{{slug}}"
+    slug: "{{year}}-{{month}}-{{day}}"
     fields:
-      - { name: "title", label: "Title", widget: "string" }
-      - { name: "body", label: "Body", widget: "text" }
-      - { name: "author", label: "Author", widget: "string" }
+      - label: "Date"
+        name: "date"
+        widget: "datetime"
+        format: "YYYY-MM-DD"
+        time_format: false
+      - label: "Body"
+        name: "body"
+        widget: "text"
+        hint: "Break lines freely."
+      - label: "Author"
+        name: "author"
+        widget: "string"
+        default: "observer"
