@@ -2,8 +2,6 @@ backend:
   name: github
   repo: dhishooooom-source/remix-of-baingan-magic
   branch: main
-  auth_type: oauth
-  app_id: YOUR_AUTH0_CLIENT_ID # Replace with your actual Client ID
 
 media_folder: "public/uploads"
 public_folder: "/uploads"
