@@ -25,24 +25,46 @@ export default function UlluFeed() {
             // Glob imports must be static literals
             const modules = import.meta.glob('../../../content/ullu/*.md', { query: '?raw', import: 'default', eager: true });
 
-            const loadedPosts: UlluPost[] = Object.entries(modules).map(([path, content]) => {
-                // Parse frontmatter
-                // frontMatter default export might vary, usually it's the function itself
-                const parsed = frontMatter<FrontMatterAttributes>(content as string);
-                const attributes = parsed.attributes;
-                const body = parsed.body;
+            const loadedPosts: UlluPost[] = Object.entries(modules).map(([path, mod]) => {
+                // Handle different Vite import modes (string vs module)
+                const content = typeof mod === 'string' ? mod : (mod as any).default || mod;
 
-                // Extract slug from filename
-                const filename = path.split('/').pop() || "";
-                const slug = filename.replace('.md', '');
+                if (typeof content !== 'string') {
+                    console.error(`Invalid content type for ${path}:`, typeof content);
+                    return null;
+                }
 
-                return {
-                    slug,
-                    date: new Date(attributes.date).toISOString().split('T')[0],
-                    author: attributes.author || "observer",
-                    body: body.trim(),
-                };
-            });
+                try {
+                    const parsed = frontMatter<FrontMatterAttributes>(content);
+                    const attributes = parsed.attributes;
+                    const body = parsed.body;
+
+                    // Extract slug from filename
+                    const filename = path.split('/').pop() || "";
+                    const slug = filename.replace('.md', '');
+
+                    // Validate date
+                    let dateStr = "";
+                    if (attributes.date) {
+                        try {
+                            dateStr = new Date(attributes.date).toISOString().split('T')[0];
+                        } catch (e) {
+                            console.error(`Invalid date in ${path}`);
+                        }
+                    }
+                    if (!dateStr) dateStr = "1970-01-01"; // Fallback
+
+                    return {
+                        slug,
+                        date: dateStr,
+                        author: attributes.author || "observer",
+                        body: body.trim(),
+                    };
+                } catch (e) {
+                    console.error(`Error parsing ${path}:`, e);
+                    return null;
+                }
+            }).filter((post): post is UlluPost => post !== null);
 
             // Sort newest first
             loadedPosts.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
