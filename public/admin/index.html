@@ -1,39 +1,17 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Ullu Pravachan CMS</title>
+<!doctype html>
+<html>
 
-    <!-- Netlify Identity Widget (GitHub Login) -->
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Content Manager</title>
+    <!-- Netlify Identity Widget -->
     <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+</head>
 
-    <!-- Netlify CMS Core -->
-    <script src="https://unpkg.com/netlify-cms-app/dist/netlify-cms.js"></script>
+<body>
+    <!-- Include the script that builds the page and powers Decap CMS -->
+    <script src="https://unpkg.com/decap-cms@^3.1.2/dist/decap-cms.js"></script>
+</body>
 
-    <style>
-      body {
-        background: #000;
-        color: #fff;
-        font-family: Inter, sans-serif;
-      }
-      .nc-root {
-        background: #000 !important;
-      }
-    </style>
-  </head>
-
-  <body>
-    <script>
-      if (window.netlifyIdentity) {
-        window.netlifyIdentity.on("init", (user) => {
-          if (!user) {
-            window.netlifyIdentity.on("login", () => {
-              document.location.href = "/admin/";
-            });
-          }
-        });
-      }
-    </script>
-  </body>
 </html>
