@@ -1,84 +1,26 @@
-/* Clean dark UI */
-:root {
-    --bg: #000;
-    --panel: #0d0d0d;
-    --card: #111;
-    --text: #e6e6e6;
-    --accent: #7affc0;
-    --accent-soft: rgba(122, 255, 192, 0.2);
-    --radius: 8px;
+body {
+    background: #000 !important;
 }
 
-/* Main CMS background */
-body,
-.css-1n7nwfa {
-    background: var(--bg) !important;
-    color: var(--text) !important;
+.nc-app-header,
+.nc-collection-page,
+.nc-entry-list,
+.nc-entry-editor {
+    background: #000 !important;
+    color: #fff !important;
 }
 
-/* Side panel */
-.css-1r8yq6u {
-    background: var(--panel) !important;
-    border-right: 1px solid #222 !important;
+button,
+.nc-button {
+    background: #222 !important;
+    color: #fff !important;
+    border-radius: 6px !important;
 }
 
-/* Search input */
 input,
 textarea,
 select {
-    background: var(--card) !important;
-    border: 1px solid #333 !important;
-    color: var(--text) !important;
-    border-radius: var(--radius);
-}
-
-/* Entries list */
-.css-1o2h91h {
-    background: var(--card) !important;
-    border: 1px solid #222 !important;
-    padding: 16px !important;
-    border-radius: var(--radius);
-}
-
-/* “New Entry” button */
-button,
-.nc-button {
-    background: var(--accent-soft) !important;
-    color: var(--accent) !important;
-    border-radius: var(--radius);
-    border: 1px solid var(--accent) !important;
-}
-
-button:hover {
-    background: var(--accent) !important;
-    color: #000 !important;
-}
-
-/* Collection Title */
-h1,
-h2,
-h3 {
-    color: var(--accent) !important;
-}
-
-/* Fix spacing */
-.nc-app-header {
-    background: var(--panel) !important;
-    border-bottom: 1px solid #222 !important;
-}
-
-/* Card style for entries */
-.EntryListCard,
-.css-16u0vnt {
-    background: var(--card) !important;
-    padding: 20px !important;
-    border-radius: var(--radius) !important;
-    border: 1px solid #222 !important;
-}
-
-/* Date + Author inline layout */
-label[for="date"],
-label[for="author"] {
-    font-size: 13px;
-    color: #888 !important;
+    background: #111 !important;
+    border: 1px solid #444 !important;
+    color: #fff !important;
 }
