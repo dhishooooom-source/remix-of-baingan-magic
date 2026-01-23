@@ -1,198 +1,84 @@
-/* GLOBAL RESET & TYPOGRAPHY */
-@import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+/* Clean dark UI */
+:root {
+    --bg: #000;
+    --panel: #0d0d0d;
+    --card: #111;
+    --text: #e6e6e6;
+    --accent: #7affc0;
+    --accent-soft: rgba(122, 255, 192, 0.2);
+    --radius: 8px;
+}
 
+/* Main CMS background */
 body,
-html,
-#nc-root,
-.nc-app-main,
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-p,
-a,
-button,
+.css-1n7nwfa {
+    background: var(--bg) !important;
+    color: var(--text) !important;
+}
+
+/* Side panel */
+.css-1r8yq6u {
+    background: var(--panel) !important;
+    border-right: 1px solid #222 !important;
+}
+
+/* Search input */
 input,
 textarea,
-span,
-div,
-label {
-    font-family: 'VT323', monospace !important;
+select {
+    background: var(--card) !important;
+    border: 1px solid #333 !important;
+    color: var(--text) !important;
+    border-radius: var(--radius);
 }
 
-body,
-html {
-    background-color: #0c0c0c !important;
-    color: #e6e6e6 !important;
+/* Entries list */
+.css-1o2h91h {
+    background: var(--card) !important;
+    border: 1px solid #222 !important;
+    padding: 16px !important;
+    border-radius: var(--radius);
 }
 
-/* DARKEN HEADERS & SIDEBAR */
-/* Top Header */
-[class*="AppHeader-bg"],
-header,
-.nc-app-header-content {
-    background-color: #1a1a1a !important;
-    border-bottom: 1px solid #333 !important;
-}
-
-/* Sidebar Wrapper - HIDING "Collections" as requested */
-aside,
-.nc-app-sidebar,
-[class*="CollectionPage-sidebar"] {
-    display: none !important;
-}
-
-/* Make main content full width since sidebar is gone */
-[class*="CollectionPage-main"],
-.nc-app-main {
-    width: 100% !important;
-    max-width: 100% !important;
-    padding: 24px !important;
-    margin: 0 !important;
-    background-color: transparent !important;
-}
-
-/* CENTERED CONTAINER FOR THE GRID */
-[class*="CollectionPage-main"]>div {
-    max-width: 1920px !important;
-    margin: 0 auto !important;
-}
-
-/* HEADER BUTTONS (Make them dark grey/minimal) */
+/* “New Entry” button */
 button,
-[class*="Button"],
-a[class*="Button"],
-.nc-app-header-quickNewButton {
-    background-color: #111 !important;
-    color: #fff !important;
-    border: 1px solid #333 !important;
-    border-radius: 0 !important;
-    /* Square terminal look */
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    box-shadow: none !important;
-    font-family: 'VT323', monospace !important;
-    transition: all 0.3s ease !important;
-    padding: 8px 16px !important;
+.nc-button {
+    background: var(--accent-soft) !important;
+    color: var(--accent) !important;
+    border-radius: var(--radius);
+    border: 1px solid var(--accent) !important;
 }
 
-button:hover,
-[class*="Button"]:hover,
-.nc-app-header-quickNewButton:hover {
-    background-color: #333 !important;
-    border-color: #666 !important;
-    color: #fff !important;
+button:hover {
+    background: var(--accent) !important;
+    color: #000 !important;
 }
 
-/* LIST VIEW TO GRID TRANSFORM */
-/* Target the list container */
-[class*="CollectionPage-list"],
-.nc-collectionPage-list {
-    display: grid !important;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)) !important;
-    gap: 24px !important;
-    padding: 0 !important;
-    background: transparent !important;
+/* Collection Title */
+h1,
+h2,
+h3 {
+    color: var(--accent) !important;
 }
 
-/* Hiding any potential list headers (like "title", "date", etc. row) if they exist */
-[class*="CollectionPage-table-header"],
-.nc-collectionPage-table-header {
-    display: none !important;
+/* Fix spacing */
+.nc-app-header {
+    background: var(--panel) !important;
+    border-bottom: 1px solid #222 !important;
 }
 
-/* Card Styling (Ullu Match) */
-[class*="CollectionPage-list-item"],
-[class*="Card"],
-.nc-collectionPage-list-item {
-    display: flex !important;
-    flex-direction: column !important;
-    background-color: rgba(0, 0, 0, 0.2) !important;
-    /* bg-black/20 */
-    border: 1px solid rgba(255, 255, 255, 0.1) !important;
-    /* border-white/5 + visibility boost */
-    color: #eee !important;
-    box-shadow: none !important;
-    border-radius: 2px !important;
-    /* rounded-sm */
-    padding: 24px !important;
-    min-height: 200px !important;
-    transition: all 0.5s ease-out !important;
-    position: relative !important;
-    overflow: hidden !important;
+/* Card style for entries */
+.EntryListCard,
+.css-16u0vnt {
+    background: var(--card) !important;
+    padding: 20px !important;
+    border-radius: var(--radius) !important;
+    border: 1px solid #222 !important;
 }
 
-/* Hover Effect matching Ullu */
-[class*="CollectionPage-list-item"]:hover,
-.nc-collectionPage-list-item:hover {
-    background-color: rgba(255, 255, 255, 0.05) !important;
-    border-color: rgba(255, 255, 255, 0.2) !important;
-    transform: translateY(-4px);
-    box-shadow: 0 0 30px -5px rgba(255, 255, 255, 0.1) !important;
-}
-
-/* Internal Text Styling */
-/* We can't target specific fields easily without inspection, but proper hierarchy helps */
-[class*="CollectionPage-list-item"] a,
-.nc-collectionPage-list-item a {
-    color: #e6e6e6 !important;
-    text-decoration: none !important;
-    font-size: 1.25rem !important;
-    /* larger text */
-    letter-spacing: 0.5px !important;
-    padding-bottom: 12px !important;
-    display: block !important;
-    font-weight: normal !important;
-}
-
-/* Hide extra metadata if cluttering, or style it */
-[class*="CollectionPage-list-item"] span {
+/* Date + Author inline layout */
+label[for="date"],
+label[for="author"] {
+    font-size: 13px;
     color: #888 !important;
-    /* Muted text */
-    font-size: 0.9rem !important;
-}
-
-/* SEARCH BAR */
-input[type="text"],
-input[type="search"] {
-    background-color: #111 !important;
-    border: 1px solid #333 !important;
-    color: white !important;
-    font-family: 'VT323', monospace !important;
-    padding: 10px !important;
-    width: 100% !important;
-    max-width: 600px !important;
-    display: block !important;
-    margin-bottom: 24px !important;
-}
-
-input[type="text"]:focus,
-input[type="search"]:focus {
-    border-color: #666 !important;
-    outline: none !important;
-    background-color: #000 !important;
-}
-
-/* SORT MENU / DROPDOWNS */
-div[class*="Dropdown-root"],
-[class*="Dropdown"] {
-    background-color: #111 !important;
-    border: 1px solid #333 !important;
-    color: #eee !important;
-}
-
-/* RESPONSIVE */
-@media (max-width: 768px) {
-
-    [class*="CollectionPage-list"],
-    .nc-collectionPage-list {
-        grid-template-columns: 1fr !important;
-    }
-
-    [class*="CollectionPage-main"],
-    .nc-app-main {
-        padding: 12px !important;
-    }
 }

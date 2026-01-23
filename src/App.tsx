@@ -7,6 +7,7 @@ import Index from "./pages/Index";
 import AayeinBaingan from "./pages/AayeinBaingan";
 import UlluFeed from "./pages/ullu";
 import UlluPravachan from "./pages/ullu/[slug]";
+import AdminShell from "./pages/AdminShell";
 
 const queryClient = new QueryClient();
 
@@ -19,7 +20,7 @@ const App = () => (
         <Routes>
           <Route path="/" element={<Index />} />
           <Route path="/aayein-baigan" element={<AayeinBaingan />} />
-          <Route path="/admin" element={<AdminRedirect />} />
+          <Route path="/admin" element={<AdminShell />} />
           <Route path="/ullu" element={<UlluFeed />} />
           <Route path="/ullu/:slug" element={<UlluPravachan />} />
           <Route path="*" element={<AayeinBaingan is404={true} />} />
@@ -28,11 +29,5 @@ const App = () => (
     </TooltipProvider>
   </QueryClientProvider>
 );
-
-
-const AdminRedirect = () => {
-  window.location.href = "/admin/index.html";
-  return null;
-};
 
 export default App;
