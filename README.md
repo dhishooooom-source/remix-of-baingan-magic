@@ -1,73 +1,81 @@
-# Welcome to your Lovable project
+# Baingan Magic — No Work Labs Exploration Space
 
-## Project info
-
-**URL**: https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID
-
-## How can I edit this code?
-
-There are several ways of editing your application.
-
-**Use Lovable**
-
-Simply visit the [Lovable Project](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and start prompting.
-
-Changes made via Lovable will be committed automatically to this repo.
-
-**Use your preferred IDE**
-
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
-
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
-
-Follow these steps:
-
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
-
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
-
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
+```
+    ____        _                              
+   |  _ \      (_)                             
+   | |_) | __ _ _ _ __   __ _  __ _ _ __       
+   |  _ < / _` | | '_ \ / _` |/ _` | '_ \      
+   | |_) | (_| | | | | | (_| | (_| | | | |     
+   |____/ \__,_|_|_| |_|\__, |\__,_|_| |_|     
+                         __/ |                 
+                        |___/                  
+   
+   > STATUS: ONLINE
+   > SYSTEM: Baingan Magic v2.0
+   > OPERATOR: No Work Labs
 ```
 
-**Edit a file directly in GitHub**
+## // SYSTEM_REVIEW
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+**Baingan Magic** is an experimental digital playground and exploration space designed by **No Work Labs**. It rejects the sterile utility of the modern web in favor of absurdism, "tiny truths," and visual experimentation.
 
-**Use GitHub Codespaces**
+This repository hosts a Single Page Application (SPA) built to house various "artifacts" of thought and design. It serves as both a portfolio of technical curiosity and a canvas for non-linear storytelling.
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+### **Core Modules:**
 
-## What technologies are used for this project?
+1.  **The Null Field**: A high-performance, interactive particle system serving as the landing experience. It represents the "void" from which ideas (or nothingness) emerge.
+2.  **Aayein Baingan**: A minimalist, zero-UI text experience. A conceptual dead-end and a nod to internet culture.
+3.  **Ullu Pravachan**: A digital observatory for "tiny truths." A CMS-backed micro-blogging feed where the "Observer" logs cryptic daily wisdom.
+    *   *Powered by Decap CMS (Git-based architecture).*
+    *   *Features infinite scroll, blurred overlay interactions, and stark aesthetics.*
 
-This project is built with:
+---
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+## // SITEMAP_TREE
 
-## How can I deploy this project?
+```graphql
+ROOT (/)
+├── index.html                  # Entry Point / Null Field Canvas
+├── sitemap.xml                 # Cartography
+│
+├── ROUTE: /                    # "Home"
+│   ├── Component: NullField    # Interactive Particle System
+│   └── Overlay: Navigation     # "Where To Fly" Menu
+│
+├── ROUTE: /aayein-baigan       # "The Absurd"
+│   └── Type: Minimalist Text   # "Aayein? Baingan."
+│
+├── ROUTE: /ullu                # "The Observatory"
+│   ├── Feed: Infinite Grid     # Masonry/Grid of Truths
+│   │   └── Interaction: Modal  # Overlay Focus Mode
+│   └── Backend: Local/GitHub   # Markdown-based Content
+│
+└── ROUTE: /admin               # "Control Deck"
+    └── Tool: Decap CMS         # Content Management System
+```
 
-Simply open [Lovable](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and click on Share -> Publish.
+## // TECH_STACK
 
-## Can I connect a custom domain to my Lovable project?
+```json
+{
+  "core": "React 18 + Vite",
+  "styling": "TailwindCSS + Shadcn/UI",
+  "visuals": "HTML5 Canvas (NullField)",
+  "cms": "Decap CMS (formerly Netlify CMS)",
+  "content": "Markdown + Frontmatter",
+  "deployment": "Netlify"
+}
+```
 
-Yes, you can!
+---
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
-
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
+```
+______________________________________________________________________
+|                                                                    |
+|   NO WORK LABS                                                     |
+|   "We do nothing, so you don't have to."                           |
+|                                                                    |
+|   [EST. 2024]                                                      |
+|   LOCATION: THE CLOUD                                              |
+|____________________________________________________________________|
+```
