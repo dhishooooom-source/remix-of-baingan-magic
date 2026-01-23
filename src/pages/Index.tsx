@@ -147,7 +147,7 @@ const Index = () => {
                 Ullu Pravachan
               </h2>
 
-              <p className="text-base sm:text-lg md:text-xl font-light font-mono text-foreground/90 whitespace-pre-line leading-relaxed tracking-wide mb-8 min-h-[4rem]">
+              <p className="text-lg sm:text-xl md:text-2xl font-light font-mono text-foreground/90 whitespace-pre-line leading-relaxed tracking-wide mb-8 min-h-[4rem]">
                 {displayedText}
                 <span
                   className={`inline-block w-0.5 h-6 bg-primary ml-1 align-middle ${displayedText.length < latestPravachan.length ? "animate-pulse" : "opacity-0"
@@ -156,7 +156,7 @@ const Index = () => {
               </p>
 
               <div className={`mt-2 transition-all duration-1000 delay-500 ${displayedText.length === latestPravachan.length ? "opacity-100" : "opacity-0"}`}>
-                <Link to="/ullu" className="text-lg sm:text-2xl font-mono tracking-widest bg-gradient-to-r from-[#a855f7] to-white bg-clip-text text-transparent hover:opacity-80 transition-opacity duration-500">
+                <Link to="/ullu" className="text-2xl font-mono tracking-widest bg-gradient-to-r from-[#a855f7] to-white bg-clip-text text-transparent hover:opacity-80 transition-opacity duration-500">
                   → Read Ullu Pravachan
                 </Link>
               </div>
