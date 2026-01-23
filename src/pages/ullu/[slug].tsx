@@ -42,7 +42,7 @@ export default function PravachanDetail() {
     }, [slug]);
 
     if (loading) {
-        return <div className="min-h-screen bg-[#0a0a0a] text-white p-10 font-sans">Loading...</div>;
+        return <div className="min-h-screen bg-[#0a0a0a] text-white p-10 font-mono">Loading...</div>;
     }
 
     if (!pravachan) {
@@ -53,7 +53,6 @@ export default function PravachanDetail() {
                     background: "#0a0a0a",
                     color: "#f5f5f5",
                     padding: "40px",
-                    fontFamily: "Inter, sans-serif"
                 }}
             >
                 <h1 style={{ opacity: 0.8, marginBottom: "20px" }}>
@@ -74,7 +73,6 @@ export default function PravachanDetail() {
                 background: "#0a0a0a",
                 color: "#f5f5f5",
                 padding: "40px",
-                fontFamily: "Inter, sans-serif"
             }}
         >
             <h1 style={{ opacity: 0.8, marginBottom: "20px" }}>
