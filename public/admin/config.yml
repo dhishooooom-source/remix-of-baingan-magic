@@ -1,0 +1,30 @@
+backend:
+  name: github
+  repo: dhishooooom-source/remix-of-baingan-magic
+  branch: main
+
+media_folder: "public/uploads"
+public_folder: "/uploads"
+
+publish_mode: editorial_workflow
+
+collections:
+  - name: "ullu"
+    label: "Ullu Pravachans"
+    folder: "src/ullu"
+    create: true
+    slug: "{{year}}-{{month}}-{{slug}}"
+    format: "frontmatter"
+    extension: "md"
+
+    fields:
+      - { name: "title", label: "Title", widget: "string" }
+      - {
+          name: "author",
+          label: "Author",
+          widget: "select",
+          options: ["observer", "shadow"],
+          default: "observer"
+        }
+      - { name: "content", label: "Pravachan Content", widget: "text" }
+      - { name: "date", label: "Date", widget: "datetime" }

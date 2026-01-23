@@ -5,6 +5,8 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Index from "./pages/Index";
 import AayeinBaingan from "./pages/AayeinBaingan";
+import UlluFeed from "./pages/ullu";
+import UlluPravachan from "./pages/ullu/[slug]";
 
 const queryClient = new QueryClient();
 
@@ -17,11 +19,20 @@ const App = () => (
         <Routes>
           <Route path="/" element={<Index />} />
           <Route path="/aayein-baigan" element={<AayeinBaingan />} />
+          <Route path="/admin" element={<AdminRedirect />} />
+          <Route path="/ullu" element={<UlluFeed />} />
+          <Route path="/ullu/:slug" element={<UlluPravachan />} />
           <Route path="*" element={<AayeinBaingan is404={true} />} />
         </Routes>
       </BrowserRouter>
     </TooltipProvider>
   </QueryClientProvider>
 );
+
+
+const AdminRedirect = () => {
+  window.location.href = "/admin/index.html";
+  return null;
+};
 
 export default App;
