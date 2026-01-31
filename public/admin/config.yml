@@ -3,7 +3,12 @@ backend:
   repo: dhishooooom-source/remix-of-baingan-magic
   branch: main
   site_domain: statuesque-kataifi-72b37a.netlify.app
+  identity: false
 
+allowed_users:
+  - dhishooooom-source
+  - acenall
+  - noworkleft
 local_backend: true
 
 media_folder: "public/uploads"
